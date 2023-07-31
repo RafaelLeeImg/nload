@@ -1,3 +1,3 @@
 fix_spelling.patch
 01_remove_strip_from_makefile.patch
-bash_completion.patch
+0003_bash_completion.patch

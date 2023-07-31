@@ -1,7 +1,9 @@
 # nload(1) completion        -*- shell-script -*-
 
 __interfaces() {
-    cut -f 1 -d ':' /proc/net/dev | tail -n +3 | grep -v lo | xargs
+    # dash and bash function command in Debian Bookworm will affect by alias
+    # But Debian trixie will not
+    \cut -f 1 -d ':' /proc/net/dev | \tail -n +3 | \grep -v lo | \xargs
 }
 
 _nload()

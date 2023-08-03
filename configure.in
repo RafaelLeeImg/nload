@@ -15,6 +15,7 @@ nload.spec
 docs/Makefile
 docs/nload.1
 src/Makefile
+completions/Makefile
 ])
 
 AM_INIT_AUTOMAKE

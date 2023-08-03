@@ -1,0 +1,44 @@
+Index: nload-0.7.4/completion/nload
+===================================================================
+--- /dev/null
++++ nload-0.7.4/completion/nload
+@@ -0,0 +1,39 @@
++# nload(1) completion        -*- shell-script -*-
++
++__interfaces() {
++    # dash and bash function command in Debian Bookworm will affect by alias
++    # But Debian trixie will not
++    \cut -f 1 -d ':' /proc/net/dev | \tail -n +3 | \grep -v lo | \xargs
++}
++
++_nload()
++{
++    local cur prev words cword # split
++    local cur=${COMP_WORDS[COMP_CWORD]}
++    local prev=${COMP_WORDS[COMP_CWORD-1]}
++
++    _init_completion || return 1
++
++    compopt +o nospace
++
++    if [[ "$cur" == -* ]]; then
++        comps=$(__interfaces)
++        COMPREPLY=( $( compgen -W '-a -i -m -o -t -u -U --help -h'  -- "$cur" ) )
++        compopt -o nospace
++        return
++    fi
++
++    case $prev in
++        -u | -U)
++            COMPREPLY=( $( compgen -W 'h b k m g H B K M G'  -- "$cur" ) )
++            ;;
++
++        *)  # fallback
++            comps=$(__interfaces)
++            COMPREPLY=( $( compgen -W '$comps'  -- "$cur" ) )
++            return
++        ;;
++    esac
++    return
++} &&
++    complete -F _nload nload
